@@ -4,16 +4,19 @@ import java.time.LocalDateTime;
 
 public class CoronaVaccinationRecordDTO {
     private int coronaVaccinationRecordId;
-    private String personName;
+    private String firstName;
+    private String lastName;
     private String vaccineType;
-    private LocalDateTime vaccinationDate;
-    private String note;
+    private LocalDateTime vaccinatedDate;
+    private int times;
 
-    public CoronaVaccinationRecordDTO(int coronaVaccinationRecordId, String personName, String vaccineType, LocalDateTime vaccinationDate, String note) {
+    public CoronaVaccinationRecordDTO(int coronaVaccinationRecordId, String firstName, String lastName, String vaccineType, LocalDateTime vaccinatedDate, int times, String note) {
         this.coronaVaccinationRecordId = coronaVaccinationRecordId;
-        this.personName = personName;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.vaccineType = vaccineType;
-        this.vaccinationDate = vaccinationDate;
+        this.vaccinatedDate = vaccinatedDate;
+        this.times = times;
         this.note = note;
     }
 
@@ -21,19 +24,29 @@ public class CoronaVaccinationRecordDTO {
         return coronaVaccinationRecordId;
     }
 
-    public String getPersonName() {
-        return personName;
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
     }
 
     public String getVaccineType() {
         return vaccineType;
     }
 
-    public LocalDateTime getVaccinationDate() {
-        return vaccinationDate;
+    public LocalDateTime getVaccinatedDate() {
+        return vaccinatedDate;
+    }
+
+    public int getTimes() {
+        return times;
     }
 
     public String getNote() {
         return note;
     }
+
+    private String note;
 }
