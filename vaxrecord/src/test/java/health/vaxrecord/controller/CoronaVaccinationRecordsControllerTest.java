@@ -23,7 +23,7 @@ public class CoronaVaccinationRecordsControllerTest {
         //Act
         //Assertion
         coronaVaccinationRecordsController.perform(get("/coronarecords")
-                .accept(MediaType.APPLICATION_JSON))
+                        .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].coronaVaccinationRecordId", Matchers.equalTo(1)))
                 .andExpect(jsonPath("$[0].firstName", Matchers.equalTo("stubFirstName1")))
@@ -51,4 +51,27 @@ public class CoronaVaccinationRecordsControllerTest {
                 .andExpect(jsonPath("$[1].note", Matchers.equalTo("it's good")));
     }
 
+    @Test
+    public void getById_success() throws Exception {
+        //Arrangement
+        stubRepo = new StubCoronaVaccinationRecordsRepo();
+        coronaVaccinationRecordsController = standaloneSetup(new CoronaVaccinationRecordsController(stubRepo)).build();
+        //Act
+        //Assertion
+        coronaVaccinationRecordsController.perform(get("/coronarecords/2")
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.coronaVaccinationRecordId", Matchers.equalTo(2)))
+                .andExpect(jsonPath("$.firstName", Matchers.equalTo("stubFirstName2")))
+                .andExpect(jsonPath("$.lastName", Matchers.equalTo("stubLastName2")))
+                .andExpect(jsonPath("$.vaccineType", Matchers.equalTo("pfizer")))
+                .andExpect(jsonPath("$.vaccinatedDate[0]", Matchers.equalTo(2022)))
+                .andExpect(jsonPath("$.vaccinatedDate[1]", Matchers.equalTo(5)))
+                .andExpect(jsonPath("$.vaccinatedDate[2]", Matchers.equalTo(5)))
+                .andExpect(jsonPath("$.vaccinatedDate[3]", Matchers.equalTo(5)))
+                .andExpect(jsonPath("$.vaccinatedDate[4]", Matchers.equalTo(5)))
+                .andExpect(jsonPath("$.vaccinatedDate[5]", Matchers.equalTo(5)))
+                .andExpect(jsonPath("$.times", Matchers.equalTo(2)))
+                .andExpect(jsonPath("$.note", Matchers.equalTo("it's good")));
+    }
 }

@@ -18,4 +18,9 @@ public class StubCoronaVaccinationRecordsRepo implements CoronaVaccinationRecord
     public List<CoronaVaccinationRecordDTO> getAll() {
         return coronaVaccinationRecords;
     }
+
+    @Override
+    public CoronaVaccinationRecordDTO getById(int coronaVaccinationRecordId) {
+        return coronaVaccinationRecord2;
+    }
 }

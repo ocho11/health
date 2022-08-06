@@ -3,6 +3,7 @@ package health.vaxrecord.controller;
 import health.vaxrecord.dto.CoronaVaccinationRecordDTO;
 import health.vaxrecord.repo.CoronaVaccinationRecordsRepo;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -18,5 +19,10 @@ public class CoronaVaccinationRecordsController {
     @GetMapping("/coronarecords")
     public List<CoronaVaccinationRecordDTO> getRecords() {
         return repo.getAll();
+    }
+
+    @GetMapping("/coronarecords/{coronaVaccinationRecordId}")
+    public CoronaVaccinationRecordDTO getById(@PathVariable int coronaVaccinationRecordId){
+        return repo.getById(coronaVaccinationRecordId);
     }
 }

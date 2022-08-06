@@ -9,6 +9,8 @@ public class CoronaVaccinationRecordDTO {
     private String vaccineType;
     private LocalDateTime vaccinatedDate;
     private int times;
+    private String note;
+
 
     public CoronaVaccinationRecordDTO(int coronaVaccinationRecordId, String firstName, String lastName, String vaccineType, LocalDateTime vaccinatedDate, int times, String note) {
         this.coronaVaccinationRecordId = coronaVaccinationRecordId;
@@ -47,6 +49,4 @@ public class CoronaVaccinationRecordDTO {
     public String getNote() {
         return note;
     }
-
-    private String note;
 }
