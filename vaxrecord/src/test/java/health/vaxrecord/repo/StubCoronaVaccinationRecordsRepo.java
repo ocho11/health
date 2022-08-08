@@ -1,6 +1,8 @@
 package health.vaxrecord.repo;
 
 import health.vaxrecord.dto.CoronaVaccinationRecordDTO;
+import health.vaxrecord.dto.IdDTO;
+import health.vaxrecord.dto.NewCoronaVaccinationRecordDTO;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -22,5 +24,10 @@ public class StubCoronaVaccinationRecordsRepo implements CoronaVaccinationRecord
     @Override
     public CoronaVaccinationRecordDTO getById(int coronaVaccinationRecordId) {
         return coronaVaccinationRecord2;
+    }
+
+    @Override
+    public int create(NewCoronaVaccinationRecordDTO coronaVaccinationRecord) {
+        return 5;
     }
 }
