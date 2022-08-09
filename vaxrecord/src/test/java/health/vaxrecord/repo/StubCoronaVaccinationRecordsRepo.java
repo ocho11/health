@@ -1,7 +1,6 @@
 package health.vaxrecord.repo;
 
 import health.vaxrecord.dto.CoronaVaccinationRecordDTO;
-import health.vaxrecord.dto.IdDTO;
 import health.vaxrecord.dto.NewCoronaVaccinationRecordDTO;
 
 import java.time.LocalDateTime;
