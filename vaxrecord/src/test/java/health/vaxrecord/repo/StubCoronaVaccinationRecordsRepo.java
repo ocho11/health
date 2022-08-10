@@ -18,6 +18,7 @@ public class StubCoronaVaccinationRecordsRepo implements CoronaVaccinationRecord
     final private List<CoronaVaccinationRecordDTO> records = asList(record1, record2);
 
     private CoronaVaccinationRecordDTO record;
+    final private int newId = 5;
 
     @Override
     public List<CoronaVaccinationRecordDTO> getAll() {
@@ -38,6 +39,6 @@ public class StubCoronaVaccinationRecordsRepo implements CoronaVaccinationRecord
 
     @Override
     public int create(NewCoronaVaccinationRecordDTO coronaVaccinationRecord) {
-        return 5;
+        return newId;
     }
 }
