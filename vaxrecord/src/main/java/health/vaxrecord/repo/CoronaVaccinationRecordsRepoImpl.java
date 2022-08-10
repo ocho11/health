@@ -3,6 +3,7 @@ package health.vaxrecord.repo;
 import health.vaxrecord.dto.CoronaVaccinationRecordDTO;
 import health.vaxrecord.dto.NewCoronaVaccinationRecordDTO;
 import health.vaxrecord.repo.dao.CoronaVaccinationRecordsDAO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.List;
 @Repository
 public class CoronaVaccinationRecordsRepoImpl implements CoronaVaccinationRecordsRepo{
 
+    @Autowired
     private CoronaVaccinationRecordsDAO coronaVaccinationRecordsDAO;
 
     public CoronaVaccinationRecordsRepoImpl(CoronaVaccinationRecordsDAO coronaVaccinationRecordsDAO) {
@@ -23,7 +25,7 @@ public class CoronaVaccinationRecordsRepoImpl implements CoronaVaccinationRecord
 
     @Override
     public CoronaVaccinationRecordDTO getById(int coronaVaccinationRecordId) {
-        return null;
+        return coronaVaccinationRecordsDAO.getById(coronaVaccinationRecordId);
     }
 
     @Override

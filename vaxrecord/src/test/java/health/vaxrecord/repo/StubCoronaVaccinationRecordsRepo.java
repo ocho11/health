@@ -22,7 +22,7 @@ public class StubCoronaVaccinationRecordsRepo implements CoronaVaccinationRecord
 
     @Override
     public CoronaVaccinationRecordDTO getById(int coronaVaccinationRecordId) {
-        return coronaVaccinationRecord2;
+        return coronaVaccinationRecord1;
     }
 
     @Override
