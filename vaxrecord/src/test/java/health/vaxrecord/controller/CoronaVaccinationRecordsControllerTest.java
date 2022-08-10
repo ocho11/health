@@ -16,21 +16,21 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
 public class CoronaVaccinationRecordsControllerTest {
-    private MockMvc coronaVaccinationRecordsController;
+    private MockMvc subject;
     private StubCoronaVaccinationRecordsRepo stubRepo;
 
     @Test
     public void getRecords_success() throws Exception {
         stubRepo = new StubCoronaVaccinationRecordsRepo();
-        coronaVaccinationRecordsController = standaloneSetup(new CoronaVaccinationRecordsController(stubRepo)).build();
+        subject = standaloneSetup(new CoronaVaccinationRecordsController(stubRepo)).build();
 
-        coronaVaccinationRecordsController.perform(get("/coronarecords")
+        subject.perform(get("/coronarecords")
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].coronaVaccinationRecordId", equalTo(1)))
                 .andExpect(jsonPath("$[0].firstName", equalTo("stubFirstName1")))
                 .andExpect(jsonPath("$[0].lastName", equalTo("stubLastName1")))
-                .andExpect(jsonPath("$[0].vaccineType", equalTo("pfizer")))
+                .andExpect(jsonPath("$[0].vaccineType", equalTo("pfizer1")))
                 .andExpect(jsonPath("$[0].vaccinatedDate[0]", equalTo(2022)))
                 .andExpect(jsonPath("$[0].vaccinatedDate[1]", equalTo(8)))
                 .andExpect(jsonPath("$[0].vaccinatedDate[2]", equalTo(8)))
@@ -38,11 +38,11 @@ public class CoronaVaccinationRecordsControllerTest {
                 .andExpect(jsonPath("$[0].vaccinatedDate[4]", equalTo(8)))
                 .andExpect(jsonPath("$[0].vaccinatedDate[5]", equalTo(8)))
                 .andExpect(jsonPath("$[0].times", equalTo(3)))
-                .andExpect(jsonPath("$[0].note", equalTo("no problem")))
+                .andExpect(jsonPath("$[0].note", equalTo("no problem1")))
                 .andExpect(jsonPath("$[1].coronaVaccinationRecordId", equalTo(2)))
                 .andExpect(jsonPath("$[1].firstName", equalTo("stubFirstName2")))
                 .andExpect(jsonPath("$[1].lastName", equalTo("stubLastName2")))
-                .andExpect(jsonPath("$[1].vaccineType", equalTo("pfizer")))
+                .andExpect(jsonPath("$[1].vaccineType", equalTo("pfizer2")))
                 .andExpect(jsonPath("$[1].vaccinatedDate[0]", equalTo(2022)))
                 .andExpect(jsonPath("$[1].vaccinatedDate[1]", equalTo(5)))
                 .andExpect(jsonPath("$[1].vaccinatedDate[2]", equalTo(5)))
@@ -50,21 +50,21 @@ public class CoronaVaccinationRecordsControllerTest {
                 .andExpect(jsonPath("$[1].vaccinatedDate[4]", equalTo(5)))
                 .andExpect(jsonPath("$[1].vaccinatedDate[5]", equalTo(5)))
                 .andExpect(jsonPath("$[1].times", equalTo(2)))
-                .andExpect(jsonPath("$[1].note", equalTo("it's good")));
+                .andExpect(jsonPath("$[1].note", equalTo("it's good2")));
     }
 
     @Test
     public void getById_success() throws Exception {
         stubRepo = new StubCoronaVaccinationRecordsRepo();
-        coronaVaccinationRecordsController = standaloneSetup(new CoronaVaccinationRecordsController(stubRepo)).build();
+        subject = standaloneSetup(new CoronaVaccinationRecordsController(stubRepo)).build();
 
-        coronaVaccinationRecordsController.perform(get("/coronarecords/2")
+        subject.perform(get("/coronarecords/2")
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.coronaVaccinationRecordId", equalTo(2)))
                 .andExpect(jsonPath("$.firstName", equalTo("stubFirstName2")))
                 .andExpect(jsonPath("$.lastName", equalTo("stubLastName2")))
-                .andExpect(jsonPath("$.vaccineType", equalTo("pfizer")))
+                .andExpect(jsonPath("$.vaccineType", equalTo("pfizer2")))
                 .andExpect(jsonPath("$.vaccinatedDate[0]", equalTo(2022)))
                 .andExpect(jsonPath("$.vaccinatedDate[1]", equalTo(5)))
                 .andExpect(jsonPath("$.vaccinatedDate[2]", equalTo(5)))
@@ -72,15 +72,15 @@ public class CoronaVaccinationRecordsControllerTest {
                 .andExpect(jsonPath("$.vaccinatedDate[4]", equalTo(5)))
                 .andExpect(jsonPath("$.vaccinatedDate[5]", equalTo(5)))
                 .andExpect(jsonPath("$.times", equalTo(2)))
-                .andExpect(jsonPath("$.note", equalTo("it's good")));
+                .andExpect(jsonPath("$.note", equalTo("it's good2")));
     }
 
     @Test
     public void createRecord_success() throws Exception {
         stubRepo = new StubCoronaVaccinationRecordsRepo();
-        coronaVaccinationRecordsController = standaloneSetup(new CoronaVaccinationRecordsController(stubRepo)).build();
+        subject = standaloneSetup(new CoronaVaccinationRecordsController(stubRepo)).build();
 
-        MockHttpServletResponse response = coronaVaccinationRecordsController.perform(post("/coronarecords")
+        MockHttpServletResponse response = subject.perform(post("/coronarecords")
                         .content("{\n" +
                                 "  \"firstName\": \"firstName5\",\n" +
                                 "  \"lastName\": \"lastName5\",\n" +
