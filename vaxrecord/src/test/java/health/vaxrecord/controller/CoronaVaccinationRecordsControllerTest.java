@@ -1,6 +1,7 @@
 package health.vaxrecord.controller;
 
 import health.vaxrecord.repo.StubCoronaVaccinationRecordsRepo;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
@@ -19,11 +20,14 @@ public class CoronaVaccinationRecordsControllerTest {
     private MockMvc subject;
     private StubCoronaVaccinationRecordsRepo stubRepo;
 
-    @Test
-    public void getRecords_success() throws Exception {
+    @BeforeEach
+    void setUp() {
         stubRepo = new StubCoronaVaccinationRecordsRepo();
         subject = standaloneSetup(new CoronaVaccinationRecordsController(stubRepo)).build();
+    }
 
+    @Test
+    public void getRecords_success() throws Exception {
         subject.perform(get("/coronarecords")
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -55,9 +59,6 @@ public class CoronaVaccinationRecordsControllerTest {
 
     @Test
     public void getById_success() throws Exception {
-        stubRepo = new StubCoronaVaccinationRecordsRepo();
-        subject = standaloneSetup(new CoronaVaccinationRecordsController(stubRepo)).build();
-
         subject.perform(get("/coronarecords/2")
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -77,9 +78,6 @@ public class CoronaVaccinationRecordsControllerTest {
 
     @Test
     public void createRecord_success() throws Exception {
-        stubRepo = new StubCoronaVaccinationRecordsRepo();
-        subject = standaloneSetup(new CoronaVaccinationRecordsController(stubRepo)).build();
-
         MockHttpServletResponse response = subject.perform(post("/coronarecords")
                         .content("{\n" +
                                 "  \"firstName\": \"firstName5\",\n" +
