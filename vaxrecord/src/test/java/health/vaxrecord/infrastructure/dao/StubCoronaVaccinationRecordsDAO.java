@@ -1,7 +1,7 @@
-package health.vaxrecord.repo.dao;
+package health.vaxrecord.infrastructure.dao;
 
-import health.vaxrecord.dto.CoronaVaccinationRecordDTO;
-import health.vaxrecord.dto.NewCoronaVaccinationRecordDTO;
+import health.vaxrecord.application.dto.CoronaVaccinationRecordDTO;
+import health.vaxrecord.application.dto.NewCoronaVaccinationRecordDTO;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

@@ -1,7 +1,7 @@
-package health.vaxrecord.repo;
+package health.vaxrecord.domain.repository;
 
-import health.vaxrecord.dto.CoronaVaccinationRecordDTO;
-import health.vaxrecord.dto.NewCoronaVaccinationRecordDTO;
+import health.vaxrecord.application.dto.CoronaVaccinationRecordDTO;
+import health.vaxrecord.application.dto.NewCoronaVaccinationRecordDTO;
 
 import java.util.List;
 

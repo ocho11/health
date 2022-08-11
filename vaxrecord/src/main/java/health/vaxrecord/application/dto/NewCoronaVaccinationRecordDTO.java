@@ -1,4 +1,4 @@
-package health.vaxrecord.dto;
+package health.vaxrecord.application.dto;
 
 import java.time.LocalDateTime;
 

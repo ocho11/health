@@ -1,4 +1,4 @@
-package health.vaxrecord.dto;
+package health.vaxrecord.application.dto;
 
 public class IdDTO {
     private int id;

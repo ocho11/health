@@ -1,22 +1,18 @@
-package health.vaxrecord.repo;
+package health.vaxrecord.infrastructure;
 
-import health.vaxrecord.dto.CoronaVaccinationRecordDTO;
-import health.vaxrecord.dto.NewCoronaVaccinationRecordDTO;
-import health.vaxrecord.repo.dao.CoronaVaccinationRecordsDAO;
-import health.vaxrecord.repo.dao.CoronaVaccinationRecordsDAOImpl;
-import health.vaxrecord.repo.dao.StubCoronaVaccinationRecordsDAO;
+import health.vaxrecord.application.dto.CoronaVaccinationRecordDTO;
+import health.vaxrecord.application.dto.NewCoronaVaccinationRecordDTO;
+import health.vaxrecord.domain.repository.CoronaVaccinationRecordsRepo;
+import health.vaxrecord.infrastructure.dao.CoronaVaccinationRecordsDAO;
+import health.vaxrecord.infrastructure.dao.StubCoronaVaccinationRecordsDAO;
 import org.junit.jupiter.api.Test;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 
-import javax.sql.DataSource;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
-import static org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType.H2;
 
 class CoronaVaccinationRecordsRepoImplTest {
 

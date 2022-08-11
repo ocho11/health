@@ -1,9 +1,9 @@
-package health.vaxrecord.controller;
+package health.vaxrecord.application;
 
-import health.vaxrecord.dto.CoronaVaccinationRecordDTO;
-import health.vaxrecord.dto.IdDTO;
-import health.vaxrecord.dto.NewCoronaVaccinationRecordDTO;
-import health.vaxrecord.repo.CoronaVaccinationRecordsRepo;
+import health.vaxrecord.application.dto.CoronaVaccinationRecordDTO;
+import health.vaxrecord.application.dto.IdDTO;
+import health.vaxrecord.application.dto.NewCoronaVaccinationRecordDTO;
+import health.vaxrecord.domain.repository.CoronaVaccinationRecordsRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

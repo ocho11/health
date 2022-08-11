@@ -1,6 +1,6 @@
-package health.vaxrecord.controller;
+package health.vaxrecord.application;
 
-import health.vaxrecord.repo.StubCoronaVaccinationRecordsRepo;
+import health.vaxrecord.infrastructure.StubCoronaVaccinationRecordsRepo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;

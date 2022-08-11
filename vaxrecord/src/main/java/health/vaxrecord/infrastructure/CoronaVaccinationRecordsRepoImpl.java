@@ -1,15 +1,16 @@
-package health.vaxrecord.repo;
+package health.vaxrecord.infrastructure;
 
-import health.vaxrecord.dto.CoronaVaccinationRecordDTO;
-import health.vaxrecord.dto.NewCoronaVaccinationRecordDTO;
-import health.vaxrecord.repo.dao.CoronaVaccinationRecordsDAO;
+import health.vaxrecord.application.dto.CoronaVaccinationRecordDTO;
+import health.vaxrecord.application.dto.NewCoronaVaccinationRecordDTO;
+import health.vaxrecord.domain.repository.CoronaVaccinationRecordsRepo;
+import health.vaxrecord.infrastructure.dao.CoronaVaccinationRecordsDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public class CoronaVaccinationRecordsRepoImpl implements CoronaVaccinationRecordsRepo{
+public class CoronaVaccinationRecordsRepoImpl implements CoronaVaccinationRecordsRepo {
 
     @Autowired
     private CoronaVaccinationRecordsDAO coronaVaccinationRecordsDAO;
