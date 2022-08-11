@@ -1,6 +1,8 @@
 package health.vaxrecord.repo.dao;
 
 import health.vaxrecord.dto.CoronaVaccinationRecordDTO;
+import health.vaxrecord.dto.NewCoronaVaccinationRecordDTO;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
@@ -18,14 +20,18 @@ class CoronaVaccinationRecordsDAOImplTest {
 
     private CoronaVaccinationRecordsDAO subject;
 
-    @Test
-    void getAll_success() {
+    @BeforeEach
+    void setUp() {
         DataSource dataSource = new EmbeddedDatabaseBuilder().setType(H2)
                 .addScript("classpath:db/migration/V1__Create_CoronaVaccinationRecord_Table.sql")
                 .addScript("classpath:tests/test-insert-data.sql").build();
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 
         subject = new CoronaVaccinationRecordsDAOImpl(jdbcTemplate);
+    }
+
+    @Test
+    void getAll_success() {
         List<CoronaVaccinationRecordDTO> records = subject.getAll();
 
         assertThat(records.size(), equalTo(3));
@@ -57,12 +63,6 @@ class CoronaVaccinationRecordsDAOImplTest {
 
     @Test
     void getById_success() {
-        DataSource dataSource = new EmbeddedDatabaseBuilder().setType(H2)
-                .addScript("classpath:db/migration/V1__Create_CoronaVaccinationRecord_Table.sql")
-                .addScript("classpath:tests/test-insert-data.sql").build();
-        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-        subject = new CoronaVaccinationRecordsDAOImpl(jdbcTemplate);
-
         CoronaVaccinationRecordDTO record = subject.getById(1002);
 
         assertThat(record.getCoronaVaccinationRecordId(), equalTo(1002));
@@ -73,5 +73,16 @@ class CoronaVaccinationRecordsDAOImplTest {
                 DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))));
         assertThat(record.getTimes(), equalTo(2));
         assertThat(record.getNote(), equalTo("not ok"));
+    }
+
+    @Test
+    void createRecord_success() {
+        NewCoronaVaccinationRecordDTO newCoronaVaccinationRecordDTO = new NewCoronaVaccinationRecordDTO("newFirstName",
+                "newOLastName", "newDTOPfizer",
+                LocalDateTime.of(2022, 5, 5, 5, 5, 5), 2, "newDTO no problem1");
+
+        int newId = subject.create(newCoronaVaccinationRecordDTO);
+
+        assertThat(newId, equalTo(1));
     }
 }

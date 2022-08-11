@@ -1,10 +1,15 @@
 package health.vaxrecord.repo.dao;
 
 import health.vaxrecord.dto.CoronaVaccinationRecordDTO;
+import health.vaxrecord.dto.NewCoronaVaccinationRecordDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -49,5 +54,27 @@ public class CoronaVaccinationRecordsDAOImpl implements CoronaVaccinationRecords
                         resultSet.getInt("times"),
                         resultSet.getString("note"))
                 , id);
+    }
+
+    @Override
+    public int create(NewCoronaVaccinationRecordDTO newCoronaVaccinationRecordDTO) {
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        String sql = "insert into corona_vaccination_record (first_name, last_name, vaccine_type, vaccinated_date,  " +
+                "times, note) " +
+                "values (?, ?, ?, " +
+                "?, ?, ?)";
+
+        jdbcTemplate.update(connection -> {
+            PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            statement.setString(1, newCoronaVaccinationRecordDTO.getFirstName());
+            statement.setString(2, newCoronaVaccinationRecordDTO.getLastName());
+            statement.setString(3, newCoronaVaccinationRecordDTO.getVaccineType());
+            statement.setString(4, newCoronaVaccinationRecordDTO.getVaccinatedDate().toString());
+            statement.setInt(5, newCoronaVaccinationRecordDTO.getTimes());
+            statement.setString(6, newCoronaVaccinationRecordDTO.getNote());
+            return statement;
+        }, keyHolder);
+
+        return keyHolder.getKey().intValue();
     }
 }

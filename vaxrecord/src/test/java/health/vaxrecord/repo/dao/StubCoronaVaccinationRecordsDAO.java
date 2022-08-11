@@ -1,6 +1,7 @@
 package health.vaxrecord.repo.dao;
 
 import health.vaxrecord.dto.CoronaVaccinationRecordDTO;
+import health.vaxrecord.dto.NewCoronaVaccinationRecordDTO;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -31,5 +32,10 @@ public class StubCoronaVaccinationRecordsDAO implements CoronaVaccinationRecords
             }
         }
         return record;
+    }
+
+    @Override
+    public int create(NewCoronaVaccinationRecordDTO newCoronaVaccinationRecordDTO) {
+        return 3;
     }
 }
