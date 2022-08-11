@@ -30,6 +30,6 @@ public class CoronaVaccinationRecordsRepoImpl implements CoronaVaccinationRecord
 
     @Override
     public int create(NewCoronaVaccinationRecordDTO coronaVaccinationRecord) {
-        return 0;
+        return coronaVaccinationRecordsDAO.create(coronaVaccinationRecord);
     }
 }

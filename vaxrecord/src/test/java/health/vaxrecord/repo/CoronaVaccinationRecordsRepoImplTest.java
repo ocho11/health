@@ -1,6 +1,7 @@
 package health.vaxrecord.repo;
 
 import health.vaxrecord.dto.CoronaVaccinationRecordDTO;
+import health.vaxrecord.dto.NewCoronaVaccinationRecordDTO;
 import health.vaxrecord.repo.dao.CoronaVaccinationRecordsDAO;
 import health.vaxrecord.repo.dao.CoronaVaccinationRecordsDAOImpl;
 import health.vaxrecord.repo.dao.StubCoronaVaccinationRecordsDAO;
@@ -63,5 +64,18 @@ class CoronaVaccinationRecordsRepoImplTest {
                 DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))));
         assertThat(record.getTimes(), equalTo(3));
         assertThat(record.getNote(), equalTo("stubDTO no problem2"));
+    }
+
+    @Test
+    void create_success(){
+        stubCoronaVaccinationRecordsDAO = new StubCoronaVaccinationRecordsDAO();
+        subject = new CoronaVaccinationRecordsRepoImpl(stubCoronaVaccinationRecordsDAO);
+        NewCoronaVaccinationRecordDTO newCoronaVaccinationRecordDTO = new NewCoronaVaccinationRecordDTO("newFirstName",
+                "newOLastName", "newDTOPfizer",
+                LocalDateTime.of(2022, 5, 5, 5, 5, 5), 2, "newDTO no problem1");
+
+        int newId = subject.create(newCoronaVaccinationRecordDTO);
+
+        assertThat(newId, equalTo(3));
     }
 }
