@@ -1,7 +1,7 @@
 package health.vaxrecord.infrastructure.dao;
 
-import health.vaxrecord.application.dto.CoronaVaccinationRecordDTO;
-import health.vaxrecord.application.dto.NewCoronaVaccinationRecordDTO;
+import health.vaxrecord.domain.model.CoronaVaccinationRecord;
+import health.vaxrecord.domain.model.NewCoronaVaccinationRecord;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -32,7 +32,7 @@ class CoronaVaccinationRecordsDAOImplTest {
 
     @Test
     void getAll_success() {
-        List<CoronaVaccinationRecordDTO> records = subject.getAll();
+        List<CoronaVaccinationRecord> records = subject.getAll();
 
         assertThat(records.size(), equalTo(3));
         assertThat(records.get(0).getCoronaVaccinationRecordId(), equalTo(1001));
@@ -63,7 +63,7 @@ class CoronaVaccinationRecordsDAOImplTest {
 
     @Test
     void getById_success() {
-        CoronaVaccinationRecordDTO record = subject.getById(1002);
+        CoronaVaccinationRecord record = subject.getById(1002);
 
         assertThat(record.getCoronaVaccinationRecordId(), equalTo(1002));
         assertThat(record.getFirstName(), equalTo("testFirstName2"));
@@ -77,11 +77,11 @@ class CoronaVaccinationRecordsDAOImplTest {
 
     @Test
     void createRecord_success() {
-        NewCoronaVaccinationRecordDTO newCoronaVaccinationRecordDTO = new NewCoronaVaccinationRecordDTO("newFirstName",
-                "newOLastName", "newDTOPfizer",
-                LocalDateTime.of(2022, 5, 5, 5, 5, 5), 2, "newDTO no problem1");
+        NewCoronaVaccinationRecord newCoronaVaccinationRecord = new NewCoronaVaccinationRecord("newFirstName",
+                "newOLastName", "newPfizer",
+                LocalDateTime.of(2022, 5, 5, 5, 5, 5), 2, "new no problem1");
 
-        int newId = subject.create(newCoronaVaccinationRecordDTO);
+        int newId = subject.create(newCoronaVaccinationRecord);
 
         assertThat(newId, equalTo(1));
     }

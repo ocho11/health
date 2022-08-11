@@ -1,14 +1,14 @@
 package health.vaxrecord.infrastructure.dao;
 
-import health.vaxrecord.application.dto.CoronaVaccinationRecordDTO;
-import health.vaxrecord.application.dto.NewCoronaVaccinationRecordDTO;
+import health.vaxrecord.domain.model.CoronaVaccinationRecord;
+import health.vaxrecord.domain.model.NewCoronaVaccinationRecord;
 
 import java.util.List;
 
 public interface CoronaVaccinationRecordsDAO {
-    public List<CoronaVaccinationRecordDTO> getAll();
+    public List<CoronaVaccinationRecord> getAll();
 
-    public CoronaVaccinationRecordDTO getById(int id);
+    public CoronaVaccinationRecord getById(int id);
 
-    public int create(NewCoronaVaccinationRecordDTO newCoronaVaccinationRecordDTO);
+    public int create(NewCoronaVaccinationRecord newCoronaVaccinationRecordDTO);
 }

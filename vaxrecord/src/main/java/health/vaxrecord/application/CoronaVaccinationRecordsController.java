@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/coronarecords")
@@ -23,18 +24,21 @@ public class CoronaVaccinationRecordsController {
 
     @GetMapping
     public List<CoronaVaccinationRecordDTO> getRecords() {
-        return repo.getAll();
+        return repo.getAll().stream()
+                .map(CoronaVaccinationRecordDTO::from)
+                .collect(Collectors.toList());
+
     }
 
     @GetMapping("/{coronaVaccinationRecordId}")
     public CoronaVaccinationRecordDTO getById(@PathVariable int coronaVaccinationRecordId) {
-        return repo.getById(coronaVaccinationRecordId);
+        return CoronaVaccinationRecordDTO.from(repo.getById(coronaVaccinationRecordId));
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public IdDTO create(@RequestBody NewCoronaVaccinationRecordDTO coronaVaccinationRecord){
-        int id = repo.create(coronaVaccinationRecord);
+    public IdDTO create(@RequestBody NewCoronaVaccinationRecordDTO coronaVaccinationRecordDTO){
+        int id = repo.create(coronaVaccinationRecordDTO.convertToDomain());
         return new IdDTO(id);
     }
 }

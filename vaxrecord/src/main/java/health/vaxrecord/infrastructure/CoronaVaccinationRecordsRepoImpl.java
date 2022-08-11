@@ -1,7 +1,7 @@
 package health.vaxrecord.infrastructure;
 
-import health.vaxrecord.application.dto.CoronaVaccinationRecordDTO;
-import health.vaxrecord.application.dto.NewCoronaVaccinationRecordDTO;
+import health.vaxrecord.domain.model.CoronaVaccinationRecord;
+import health.vaxrecord.domain.model.NewCoronaVaccinationRecord;
 import health.vaxrecord.domain.repository.CoronaVaccinationRecordsRepo;
 import health.vaxrecord.infrastructure.dao.CoronaVaccinationRecordsDAO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,17 +20,17 @@ public class CoronaVaccinationRecordsRepoImpl implements CoronaVaccinationRecord
     }
 
     @Override
-    public List<CoronaVaccinationRecordDTO> getAll() {
+    public List<CoronaVaccinationRecord> getAll() {
         return coronaVaccinationRecordsDAO.getAll();
     }
 
     @Override
-    public CoronaVaccinationRecordDTO getById(int coronaVaccinationRecordId) {
+    public CoronaVaccinationRecord getById(int coronaVaccinationRecordId) {
         return coronaVaccinationRecordsDAO.getById(coronaVaccinationRecordId);
     }
 
     @Override
-    public int create(NewCoronaVaccinationRecordDTO coronaVaccinationRecord) {
+    public int create(NewCoronaVaccinationRecord coronaVaccinationRecord) {
         return coronaVaccinationRecordsDAO.create(coronaVaccinationRecord);
     }
 }

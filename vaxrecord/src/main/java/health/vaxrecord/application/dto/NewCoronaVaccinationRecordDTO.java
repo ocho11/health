@@ -1,5 +1,7 @@
 package health.vaxrecord.application.dto;
 
+import health.vaxrecord.domain.model.NewCoronaVaccinationRecord;
+
 import java.time.LocalDateTime;
 
 public class NewCoronaVaccinationRecordDTO {
@@ -22,28 +24,37 @@ public class NewCoronaVaccinationRecordDTO {
         this.note = note;
     }
 
-
-    public String getFirstName() {
-        return firstName;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getLastName() {
-        return lastName;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
-    public String getVaccineType() {
-        return vaccineType;
+    public void setVaccineType(String vaccineType) {
+        this.vaccineType = vaccineType;
     }
 
-    public LocalDateTime getVaccinatedDate() {
-        return vaccinatedDate;
+    public void setVaccinatedDate(LocalDateTime vaccinatedDate) {
+        this.vaccinatedDate = vaccinatedDate;
     }
 
-    public int getTimes() {
-        return times;
+    public void setTimes(int times) {
+        this.times = times;
     }
 
-    public String getNote() {
-        return note;
+    public void setNote(String note) {
+        this.note = note;
+    }
+
+    public NewCoronaVaccinationRecord convertToDomain() {
+        return new NewCoronaVaccinationRecord(
+                this.firstName,
+                this.lastName,
+                this.vaccineType,
+                this.vaccinatedDate,
+                this.times,
+                this.note);
     }
 }

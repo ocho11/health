@@ -1,14 +1,14 @@
 package health.vaxrecord.domain.repository;
 
-import health.vaxrecord.application.dto.CoronaVaccinationRecordDTO;
-import health.vaxrecord.application.dto.NewCoronaVaccinationRecordDTO;
+import health.vaxrecord.domain.model.CoronaVaccinationRecord;
+import health.vaxrecord.domain.model.NewCoronaVaccinationRecord;
 
 import java.util.List;
 
 public interface CoronaVaccinationRecordsRepo {
-    List<CoronaVaccinationRecordDTO> getAll();
+    List<CoronaVaccinationRecord> getAll();
 
-    CoronaVaccinationRecordDTO getById(int coronaVaccinationRecordId);
+    CoronaVaccinationRecord getById(int coronaVaccinationRecordId);
 
-    int create(NewCoronaVaccinationRecordDTO coronaVaccinationRecord);
+    int create(NewCoronaVaccinationRecord coronaVaccinationRecord);
 }

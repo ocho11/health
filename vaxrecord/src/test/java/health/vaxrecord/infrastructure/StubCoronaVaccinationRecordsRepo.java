@@ -1,7 +1,7 @@
 package health.vaxrecord.infrastructure;
 
-import health.vaxrecord.application.dto.CoronaVaccinationRecordDTO;
-import health.vaxrecord.application.dto.NewCoronaVaccinationRecordDTO;
+import health.vaxrecord.domain.model.CoronaVaccinationRecord;
+import health.vaxrecord.domain.model.NewCoronaVaccinationRecord;
 import health.vaxrecord.domain.repository.CoronaVaccinationRecordsRepo;
 
 import java.time.LocalDateTime;
@@ -11,24 +11,24 @@ import static java.util.Arrays.asList;
 
 public class StubCoronaVaccinationRecordsRepo implements CoronaVaccinationRecordsRepo {
 
-    final private CoronaVaccinationRecordDTO record1 = new CoronaVaccinationRecordDTO(1, "stubFirstName1",
+    final private CoronaVaccinationRecord record1 = new CoronaVaccinationRecord(1, "stubFirstName1",
             "stubLastName1",
             "pfizer1", LocalDateTime.of(2022, 8, 8, 8, 8, 8), 3, "no problem1");
-    final private CoronaVaccinationRecordDTO record2 = new CoronaVaccinationRecordDTO(2,
+    final private CoronaVaccinationRecord record2 = new CoronaVaccinationRecord(2,
             "stubFirstName2", "stubLastName2", "pfizer2", LocalDateTime.of(2022, 5, 5, 5, 5, 5), 2, "it's good2");
-    final private List<CoronaVaccinationRecordDTO> records = asList(record1, record2);
+    final private List<CoronaVaccinationRecord> records = asList(record1, record2);
 
-    private CoronaVaccinationRecordDTO record;
+    private CoronaVaccinationRecord record;
     final private int newId = 5;
 
     @Override
-    public List<CoronaVaccinationRecordDTO> getAll() {
+    public List<CoronaVaccinationRecord> getAll() {
         return records;
     }
 
     @Override
-    public CoronaVaccinationRecordDTO getById(int coronaVaccinationRecordId) {
-        for (CoronaVaccinationRecordDTO record:records
+    public CoronaVaccinationRecord getById(int coronaVaccinationRecordId) {
+        for (CoronaVaccinationRecord record:records
              ) {
             if(coronaVaccinationRecordId == record.getCoronaVaccinationRecordId()){
                 this.record = record;
@@ -39,7 +39,7 @@ public class StubCoronaVaccinationRecordsRepo implements CoronaVaccinationRecord
     }
 
     @Override
-    public int create(NewCoronaVaccinationRecordDTO coronaVaccinationRecord) {
+    public int create(NewCoronaVaccinationRecord coronaVaccinationRecord) {
         return newId;
     }
 }

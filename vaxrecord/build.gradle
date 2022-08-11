@@ -22,7 +22,8 @@ if (hasProperty('buildScan')) {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
-	runtimeOnly 'mysql:mysql-connector-java'
+    implementation 'org.projectlombok:lombok:1.18.22'
+    runtimeOnly 'mysql:mysql-connector-java'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation group: 'com.h2database', name: 'h2', version: '2.1.210'
 }
