@@ -4,8 +4,6 @@ import health.vaxrecord.domain.model.CoronaVaccinationRecord;
 import health.vaxrecord.domain.model.NewCoronaVaccinationRecord;
 import health.vaxrecord.domain.repository.CoronaVaccinationRecordsRepo;
 import health.vaxrecord.infrastructure.dao.CoronaVaccinationRecordsDAO;
-import health.vaxrecord.infrastructure.dao.CoronaVaccinationRecordsDAOImpl;
-import health.vaxrecord.infrastructure.dao.StubCoronaVaccinationRecordsDAO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -13,7 +11,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
