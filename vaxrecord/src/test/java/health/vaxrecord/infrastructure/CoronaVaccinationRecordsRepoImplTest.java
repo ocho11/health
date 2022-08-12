@@ -69,7 +69,7 @@ class CoronaVaccinationRecordsRepoImplTest {
                     List.of(
                             new CoronaVaccinationRecord(111, "firstName111", "lastName111", "pfizer111",
                                     LocalDateTime.of(2022, 5, 5, 5, 5), 111, "no problem 111"),
-                            new CoronaVaccinationRecord(222, "firstName222", "lastName22", "pfizer222",
+                            new CoronaVaccinationRecord(222, "firstName222", "lastName222", "pfizer222",
                                     LocalDateTime.of(2022, 5, 5, 5, 5), 222, "no problem 222")
                     )
             ).when(coronaVaccinationRecordsDAO).getAll();
@@ -84,7 +84,7 @@ class CoronaVaccinationRecordsRepoImplTest {
             assertThat(response.get(0).getNote(), equalTo("no problem 111"));
             assertThat(response.get(1).getCoronaVaccinationRecordId(), equalTo(222));
             assertThat(response.get(1).getFirstName(), equalTo("firstName222"));
-            assertThat(response.get(1).getLastName(), equalTo("lastName22"));
+            assertThat(response.get(1).getLastName(), equalTo("lastName222"));
             assertThat(response.get(1).getVaccineType(), equalTo("pfizer222"));
             assertThat(response.get(1).getTimes(), equalTo(222));
             assertThat(response.get(1).getNote(), equalTo("no problem 222"));
@@ -94,7 +94,7 @@ class CoronaVaccinationRecordsRepoImplTest {
     @Nested
     class getById_CoronaVaccinationRecordId {
         @Test
-        void wasCalled_fromCoronaVaccinationRecordsRepoImpl() {
+        void wasCalled_from_CoronaVaccinationRecordsRepoImpl() {
             subject.getById(anyInt());
 
             verify(coronaVaccinationRecordsDAO, times(1)).getById(anyInt());
@@ -103,7 +103,7 @@ class CoronaVaccinationRecordsRepoImplTest {
         @Test
         void does_theResponse_sameTheExpectation() {
             doReturn(
-                    new CoronaVaccinationRecord(222, "firstName222", "lastName22", "pfizer222",
+                    new CoronaVaccinationRecord(222, "firstName222", "lastName222", "pfizer222",
                             LocalDateTime.of(2022, 5, 5, 5, 5), 222, "no problem 222")
             ).when(coronaVaccinationRecordsDAO).getById(222);
 
@@ -111,7 +111,7 @@ class CoronaVaccinationRecordsRepoImplTest {
 
             assertThat(response.getCoronaVaccinationRecordId(), equalTo(222));
             assertThat(response.getFirstName(), equalTo("firstName222"));
-            assertThat(response.getLastName(), equalTo("lastName22"));
+            assertThat(response.getLastName(), equalTo("lastName222"));
             assertThat(response.getVaccineType(), equalTo("pfizer222"));
             assertThat(response.getTimes(), equalTo(222));
             assertThat(response.getNote(), equalTo("no problem 222"));

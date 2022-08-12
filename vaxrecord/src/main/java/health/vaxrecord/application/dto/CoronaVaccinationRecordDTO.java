@@ -8,6 +8,10 @@ public class CoronaVaccinationRecordDTO {
     int coronaVaccinationRecordId;
     String firstName;
     String lastName;
+    String vaccineType;
+    LocalDateTime vaccinatedDate;
+    int times;
+    String note;
 
     public CoronaVaccinationRecordDTO(int coronaVaccinationRecordId, String firstName, String lastName, String vaccineType, LocalDateTime vaccinatedDate, int times, String note) {
         this.coronaVaccinationRecordId = coronaVaccinationRecordId;
@@ -75,10 +79,6 @@ public class CoronaVaccinationRecordDTO {
         this.note = note;
     }
 
-    String vaccineType;
-    LocalDateTime vaccinatedDate;
-    int times;
-    String note;
 
     public static CoronaVaccinationRecordDTO from(CoronaVaccinationRecord coronaVaccinationRecord) {
         return new CoronaVaccinationRecordDTO(
