@@ -39,7 +39,7 @@ public class CoronaVaccinationRecordsControllerTest {
     }
 
     @Nested
-    class getAll_NoParameter {
+    class GetAll_NoParameter {
         @Test
         public void wasCalled_from_CoronaVaccinationRecordsRepo() throws Exception {
             subject.perform(get("/coronarecords")
@@ -108,7 +108,7 @@ public class CoronaVaccinationRecordsControllerTest {
     }
 
     @Nested
-    class getById_CoronaVaccinationRecordId {
+    class GetById_CoronaVaccinationRecordId {
         @Test
         public void wasCalled_from_CoronaVaccinationRecordsRepo() throws Exception {
             doReturn(new CoronaVaccinationRecord(
@@ -170,7 +170,7 @@ public class CoronaVaccinationRecordsControllerTest {
     }
 
     @Nested
-    class createRecord_NewCoronaVaccinationRecordDTO {
+    class CreateRecord_NewCoronaVaccinationRecordDTO {
         @Test
         public void wasCalled_from_CoronaVaccinationRecordsRepo() throws Exception {
             subject.perform(post("/coronarecords")
