@@ -5,6 +5,7 @@ import health.vaxrecord.domain.model.NewCoronaVaccinationRecord;
 import health.vaxrecord.domain.repository.CoronaVaccinationRecordsRepo;
 import health.vaxrecord.infrastructure.dao.CoronaVaccinationRecordsDAO;
 import health.vaxrecord.infrastructure.dao.StubCoronaVaccinationRecordsDAO;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
@@ -19,11 +20,14 @@ class CoronaVaccinationRecordsRepoImplTest {
     private CoronaVaccinationRecordsRepo subject;
     private CoronaVaccinationRecordsDAO stubCoronaVaccinationRecordsDAO;
 
-    @Test
-    void getAll() {
+    @BeforeEach
+    void setUp() {
         stubCoronaVaccinationRecordsDAO = new StubCoronaVaccinationRecordsDAO();
         subject = new CoronaVaccinationRecordsRepoImpl(stubCoronaVaccinationRecordsDAO);
+    }
 
+    @Test
+    void getAll() {
         List<CoronaVaccinationRecord> records = subject.getAll();
 
         assertThat(records.size(), equalTo(2));
@@ -47,9 +51,6 @@ class CoronaVaccinationRecordsRepoImplTest {
 
     @Test
     void getById_success() {
-        stubCoronaVaccinationRecordsDAO = new StubCoronaVaccinationRecordsDAO();
-        subject = new CoronaVaccinationRecordsRepoImpl(stubCoronaVaccinationRecordsDAO);
-
         CoronaVaccinationRecord record = subject.getById(2);
 
         assertThat(record.getCoronaVaccinationRecordId(), equalTo(2));
@@ -64,8 +65,6 @@ class CoronaVaccinationRecordsRepoImplTest {
 
     @Test
     void create_success(){
-        stubCoronaVaccinationRecordsDAO = new StubCoronaVaccinationRecordsDAO();
-        subject = new CoronaVaccinationRecordsRepoImpl(stubCoronaVaccinationRecordsDAO);
         NewCoronaVaccinationRecord newCoronaVaccinationRecord = new NewCoronaVaccinationRecord("newFirstName",
                 "newOLastName", "newPfizer",
                 LocalDateTime.of(2022, 5, 5, 5, 5, 5), 2, "new no problem1");
