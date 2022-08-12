@@ -4,9 +4,13 @@ import health.vaxrecord.domain.model.CoronaVaccinationRecord;
 import health.vaxrecord.domain.model.NewCoronaVaccinationRecord;
 import health.vaxrecord.domain.repository.CoronaVaccinationRecordsRepo;
 import health.vaxrecord.infrastructure.dao.CoronaVaccinationRecordsDAO;
+import health.vaxrecord.infrastructure.dao.CoronaVaccinationRecordsDAOImpl;
 import health.vaxrecord.infrastructure.dao.StubCoronaVaccinationRecordsDAO;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -14,63 +18,130 @@ import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
+import static org.mockito.Mockito.*;
 
 class CoronaVaccinationRecordsRepoImplTest {
 
     private CoronaVaccinationRecordsRepo subject;
-    private CoronaVaccinationRecordsDAO stubCoronaVaccinationRecordsDAO;
+
+    @Mock
+    private CoronaVaccinationRecordsDAO coronaVaccinationRecordsDAO;
 
     @BeforeEach
     void setUp() {
-        stubCoronaVaccinationRecordsDAO = new StubCoronaVaccinationRecordsDAO();
-        subject = new CoronaVaccinationRecordsRepoImpl(stubCoronaVaccinationRecordsDAO);
+        MockitoAnnotations.openMocks(this);
+        subject = new CoronaVaccinationRecordsRepoImpl(coronaVaccinationRecordsDAO);
     }
 
-    @Test
-    void getAll() {
-        List<CoronaVaccinationRecord> records = subject.getAll();
+    @Nested
+    class getAll_NoParameter {
+        @Test
+        void wasCalled_from_CoronaVaccinationRecordsRepoImpl() {
+            subject.getAll();
 
-        assertThat(records.size(), equalTo(2));
-        assertThat(records.get(0).getCoronaVaccinationRecordId(), equalTo(1));
-        assertThat(records.get(0).getFirstName(), equalTo("stubFirstName1"));
-        assertThat(records.get(0).getLastName(), equalTo("stubLastName1"));
-        assertThat(records.get(0).getVaccineType(), equalTo("stubPfizer1"));
-        assertThat(records.get(0).getVaccinatedDate(), equalTo(LocalDateTime.parse("2022-08-08 08:08:08",
-                DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))));
-        assertThat(records.get(0).getTimes(), equalTo(2));
-        assertThat(records.get(0).getNote(), equalTo("stub no problem1"));
-        assertThat(records.get(1).getCoronaVaccinationRecordId(), equalTo(2));
-        assertThat(records.get(1).getFirstName(), equalTo("stubFirstName2"));
-        assertThat(records.get(1).getLastName(), equalTo("stubLastName2"));
-        assertThat(records.get(1).getVaccineType(), equalTo("stubPfizer2"));
-        assertThat(records.get(1).getVaccinatedDate(), equalTo(LocalDateTime.parse("2022-05-05 05:05:05",
-                DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))));
-        assertThat(records.get(1).getTimes(), equalTo(3));
-        assertThat(records.get(1).getNote(), equalTo("stub no problem2"));
+            verify(coronaVaccinationRecordsDAO, times(1))
+                    .getAll();
+
+        }
+
+        @Test
+        void does_theOneResponse_sameTheExpectation() {
+            doReturn(
+                    List.of(
+                            new CoronaVaccinationRecord(101, "firstName101", "lastName101", "pfizer101",
+                                    LocalDateTime.of(2022, 5, 5, 5, 5), 101, "no problem 101")
+                    )
+            ).when(coronaVaccinationRecordsDAO).getAll();
+
+            List<CoronaVaccinationRecord> response = subject.getAll();
+
+            assertThat(response.get(0).getCoronaVaccinationRecordId(), equalTo(101));
+            assertThat(response.get(0).getFirstName(), equalTo("firstName101"));
+            assertThat(response.get(0).getLastName(), equalTo("lastName101"));
+            assertThat(response.get(0).getVaccineType(), equalTo("pfizer101"));
+            assertThat(response.get(0).getTimes(), equalTo(101));
+            assertThat(response.get(0).getNote(), equalTo("no problem 101"));
+        }
+
+        @Test
+        void does_theAllResponse_sameTheExpectation() {
+            doReturn(
+                    List.of(
+                            new CoronaVaccinationRecord(111, "firstName111", "lastName111", "pfizer111",
+                                    LocalDateTime.of(2022, 5, 5, 5, 5), 111, "no problem 111"),
+                            new CoronaVaccinationRecord(222, "firstName222", "lastName22", "pfizer222",
+                                    LocalDateTime.of(2022, 5, 5, 5, 5), 222, "no problem 222")
+                    )
+            ).when(coronaVaccinationRecordsDAO).getAll();
+
+            List<CoronaVaccinationRecord> response = coronaVaccinationRecordsDAO.getAll();
+
+            assertThat(response.get(0).getCoronaVaccinationRecordId(), equalTo(111));
+            assertThat(response.get(0).getFirstName(), equalTo("firstName111"));
+            assertThat(response.get(0).getLastName(), equalTo("lastName111"));
+            assertThat(response.get(0).getVaccineType(), equalTo("pfizer111"));
+            assertThat(response.get(0).getTimes(), equalTo(111));
+            assertThat(response.get(0).getNote(), equalTo("no problem 111"));
+            assertThat(response.get(1).getCoronaVaccinationRecordId(), equalTo(222));
+            assertThat(response.get(1).getFirstName(), equalTo("firstName222"));
+            assertThat(response.get(1).getLastName(), equalTo("lastName22"));
+            assertThat(response.get(1).getVaccineType(), equalTo("pfizer222"));
+            assertThat(response.get(1).getTimes(), equalTo(222));
+            assertThat(response.get(1).getNote(), equalTo("no problem 222"));
+        }
     }
 
-    @Test
-    void getById_success() {
-        CoronaVaccinationRecord record = subject.getById(2);
+    @Nested
+    class getById_CoronaVaccinationRecordId {
+        @Test
+        void wasCalled_fromCoronaVaccinationRecordsRepoImpl() {
+            subject.getById(anyInt());
 
-        assertThat(record.getCoronaVaccinationRecordId(), equalTo(2));
-        assertThat(record.getFirstName(), equalTo("stubFirstName2"));
-        assertThat(record.getLastName(), equalTo("stubLastName2"));
-        assertThat(record.getVaccineType(), equalTo("stubPfizer2"));
-        assertThat(record.getVaccinatedDate(), equalTo(LocalDateTime.parse("2022-05-05 05:05:05",
-                DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))));
-        assertThat(record.getTimes(), equalTo(3));
-        assertThat(record.getNote(), equalTo("stub no problem2"));
+            verify(coronaVaccinationRecordsDAO, times(1)).getById(anyInt());
+        }
+
+        @Test
+        void does_theResponse_sameTheExpectation() {
+            doReturn(
+                    new CoronaVaccinationRecord(222, "firstName222", "lastName22", "pfizer222",
+                            LocalDateTime.of(2022, 5, 5, 5, 5), 222, "no problem 222")
+            ).when(coronaVaccinationRecordsDAO).getById(222);
+
+            CoronaVaccinationRecord response = subject.getById(222);
+
+            assertThat(response.getCoronaVaccinationRecordId(), equalTo(222));
+            assertThat(response.getFirstName(), equalTo("firstName222"));
+            assertThat(response.getLastName(), equalTo("lastName22"));
+            assertThat(response.getVaccineType(), equalTo("pfizer222"));
+            assertThat(response.getTimes(), equalTo(222));
+            assertThat(response.getNote(), equalTo("no problem 222"));
+
+        }
     }
 
-    @Test
-    void create_success(){
-        NewCoronaVaccinationRecord newCoronaVaccinationRecord = new NewCoronaVaccinationRecord("newFirstName",
-                "newOLastName", "newPfizer",
-                LocalDateTime.of(2022, 5, 5, 5, 5, 5), 2, "new no problem1");
+    @Nested
+    class create_NewCoronaVaccinationRecord {
+        @Test
+        void wasCalled_from_CoronaVaccinationRecordsRepoImpl() {
+            NewCoronaVaccinationRecord newCoronaVaccinationRecord = new NewCoronaVaccinationRecord( "newFirstName101",
+                    "newLastName101", "newPfizer101",
+                    LocalDateTime.of(2022, 5, 5, 5, 5), 101, "new problem 101");
+            subject.create(newCoronaVaccinationRecord);
 
-        int newId = subject.create(newCoronaVaccinationRecord);
+            verify(coronaVaccinationRecordsDAO,times(1)).create(newCoronaVaccinationRecord);
+        }
 
-        assertThat(newId, equalTo(3));
+        @Test
+        void does_theResponse_sameTheExpectation(){
+            NewCoronaVaccinationRecord newCoronaVaccinationRecord = new NewCoronaVaccinationRecord( "newFirstName101",
+                    "newLastName101", "newPfizer101",
+                    LocalDateTime.of(2022, 5, 5, 5, 5), 101, "new problem 101");
+            doReturn(101)
+                    .when(coronaVaccinationRecordsDAO).create(newCoronaVaccinationRecord);
+
+            int response = subject.create(newCoronaVaccinationRecord);
+
+            assertThat(response,equalTo(101));
+        }
     }
 }
