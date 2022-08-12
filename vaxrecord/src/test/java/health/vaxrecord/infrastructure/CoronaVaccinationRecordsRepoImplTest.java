@@ -36,7 +36,7 @@ class CoronaVaccinationRecordsRepoImplTest {
     @Nested
     class getAll_NoParameter {
         @Test
-        void wasCalled_from_CoronaVaccinationRecordsRepoImpl() {
+        void wasCalled_from_CoronaVaccinationRecordsDAO() {
             subject.getAll();
 
             verify(coronaVaccinationRecordsDAO, times(1))
@@ -94,7 +94,7 @@ class CoronaVaccinationRecordsRepoImplTest {
     @Nested
     class getById_CoronaVaccinationRecordId {
         @Test
-        void wasCalled_from_CoronaVaccinationRecordsRepoImpl() {
+        void wasCalled_from_CoronaVaccinationRecordsDAO() {
             subject.getById(anyInt());
 
             verify(coronaVaccinationRecordsDAO, times(1)).getById(anyInt());
@@ -122,7 +122,7 @@ class CoronaVaccinationRecordsRepoImplTest {
     @Nested
     class create_NewCoronaVaccinationRecord {
         @Test
-        void wasCalled_from_CoronaVaccinationRecordsRepoImpl() {
+        void wasCalled_from_CoronaVaccinationRecordsDAO() {
             NewCoronaVaccinationRecord newCoronaVaccinationRecord = new NewCoronaVaccinationRecord( "newFirstName101",
                     "newLastName101", "newPfizer101",
                     LocalDateTime.of(2022, 5, 5, 5, 5), 101, "new problem 101");
