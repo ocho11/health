@@ -1,14 +1,20 @@
 package health.vaxrecord.application;
 
-import health.vaxrecord.infrastructure.StubCoronaVaccinationRecordsRepo;
+import health.vaxrecord.domain.model.CoronaVaccinationRecord;
+import health.vaxrecord.domain.repository.CoronaVaccinationRecordsRepo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.time.LocalDate;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
+import static org.mockito.Mockito.*;
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -18,66 +24,57 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standal
 
 public class CoronaVaccinationRecordsControllerTest {
     private MockMvc subject;
-    private StubCoronaVaccinationRecordsRepo stubRepo;
+
+    @Mock
+    private CoronaVaccinationRecordsRepo coronaVaccinationRecordsRepo;
 
     @BeforeEach
     void setUp() {
-        stubRepo = new StubCoronaVaccinationRecordsRepo();
-        subject = standaloneSetup(new CoronaVaccinationRecordsController(stubRepo)).build();
+        MockitoAnnotations.openMocks(this);
+        subject = standaloneSetup(new CoronaVaccinationRecordsController(coronaVaccinationRecordsRepo)).build();
     }
 
     @Test
     public void getRecords_success() throws Exception {
         subject.perform(get("/coronarecords")
-                        .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].coronaVaccinationRecordId", equalTo(1)))
-                .andExpect(jsonPath("$[0].firstName", equalTo("stubFirstName1")))
-                .andExpect(jsonPath("$[0].lastName", equalTo("stubLastName1")))
-                .andExpect(jsonPath("$[0].vaccineType", equalTo("pfizer1")))
-                .andExpect(jsonPath("$[0].vaccinatedDate[0]", equalTo(2022)))
-                .andExpect(jsonPath("$[0].vaccinatedDate[1]", equalTo(8)))
-                .andExpect(jsonPath("$[0].vaccinatedDate[2]", equalTo(8)))
-                .andExpect(jsonPath("$[0].vaccinatedDate[3]", equalTo(8)))
-                .andExpect(jsonPath("$[0].vaccinatedDate[4]", equalTo(8)))
-                .andExpect(jsonPath("$[0].vaccinatedDate[5]", equalTo(8)))
-                .andExpect(jsonPath("$[0].times", equalTo(3)))
-                .andExpect(jsonPath("$[0].note", equalTo("no problem1")))
-                .andExpect(jsonPath("$[1].coronaVaccinationRecordId", equalTo(2)))
-                .andExpect(jsonPath("$[1].firstName", equalTo("stubFirstName2")))
-                .andExpect(jsonPath("$[1].lastName", equalTo("stubLastName2")))
-                .andExpect(jsonPath("$[1].vaccineType", equalTo("pfizer2")))
-                .andExpect(jsonPath("$[1].vaccinatedDate[0]", equalTo(2022)))
-                .andExpect(jsonPath("$[1].vaccinatedDate[1]", equalTo(5)))
-                .andExpect(jsonPath("$[1].vaccinatedDate[2]", equalTo(5)))
-                .andExpect(jsonPath("$[1].vaccinatedDate[3]", equalTo(5)))
-                .andExpect(jsonPath("$[1].vaccinatedDate[4]", equalTo(5)))
-                .andExpect(jsonPath("$[1].vaccinatedDate[5]", equalTo(5)))
-                .andExpect(jsonPath("$[1].times", equalTo(2)))
-                .andExpect(jsonPath("$[1].note", equalTo("it's good2")));
+                .accept(MediaType.APPLICATION_JSON));
+
+        verify(coronaVaccinationRecordsRepo, times(1))
+                .getAll();
     }
 
     @Test
     public void getById_success() throws Exception {
+        CoronaVaccinationRecord coronaVaccinationRecord = new CoronaVaccinationRecord(
+                2,
+                "firstName2",
+                "lastName2",
+                "pfizer2",
+                LocalDate.of(2022, 5, 5).atTime(5, 5),
+                2,
+                "no problem12");
+        System.out.printf(coronaVaccinationRecord.toString());
+
+        doReturn(
+                coronaVaccinationRecord)
+                .when(coronaVaccinationRecordsRepo).getById(2);
+
         subject.perform(get("/coronarecords/2")
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.coronaVaccinationRecordId", equalTo(2)))
-                .andExpect(jsonPath("$.firstName", equalTo("stubFirstName2")))
-                .andExpect(jsonPath("$.lastName", equalTo("stubLastName2")))
+                .andExpect(jsonPath("$.firstName", equalTo("firstName2")))
+                .andExpect(jsonPath("$.lastName", equalTo("lastName2")))
                 .andExpect(jsonPath("$.vaccineType", equalTo("pfizer2")))
-                .andExpect(jsonPath("$.vaccinatedDate[0]", equalTo(2022)))
-                .andExpect(jsonPath("$.vaccinatedDate[1]", equalTo(5)))
-                .andExpect(jsonPath("$.vaccinatedDate[2]", equalTo(5)))
-                .andExpect(jsonPath("$.vaccinatedDate[3]", equalTo(5)))
-                .andExpect(jsonPath("$.vaccinatedDate[4]", equalTo(5)))
-                .andExpect(jsonPath("$.vaccinatedDate[5]", equalTo(5)))
                 .andExpect(jsonPath("$.times", equalTo(2)))
-                .andExpect(jsonPath("$.note", equalTo("it's good2")));
+                .andExpect(jsonPath("$.note", equalTo("no problem12")));
     }
 
     @Test
     public void createRecord_success() throws Exception {
+        doReturn(5)
+                .when(coronaVaccinationRecordsRepo).create(any());
+
         MockHttpServletResponse response = subject.perform(post("/coronarecords")
                         .content("{\n" +
                                 "  \"firstName\": \"firstName5\",\n" +
