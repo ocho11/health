@@ -36,6 +36,6 @@ public class CoronaVaccinationRecordsRepoImpl implements CoronaVaccinationRecord
 
     @Override
     public void delete(int coronaVaccinationRecordId) {
-
+        coronaVaccinationRecordsDAO.delete(coronaVaccinationRecordId);
     }
 }

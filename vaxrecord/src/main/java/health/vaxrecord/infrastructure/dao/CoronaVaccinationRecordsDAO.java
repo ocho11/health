@@ -6,9 +6,11 @@ import health.vaxrecord.domain.model.NewCoronaVaccinationRecord;
 import java.util.List;
 
 public interface CoronaVaccinationRecordsDAO {
-    public List<CoronaVaccinationRecord> getAll();
+    List<CoronaVaccinationRecord> getAll();
 
-    public CoronaVaccinationRecord getById(int id);
+    CoronaVaccinationRecord getById(int id);
 
-    public int create(NewCoronaVaccinationRecord newCoronaVaccinationRecordDTO);
+    int create(NewCoronaVaccinationRecord newCoronaVaccinationRecordDTO);
+
+    boolean delete(int coronaVaccinationRecordId);
 }

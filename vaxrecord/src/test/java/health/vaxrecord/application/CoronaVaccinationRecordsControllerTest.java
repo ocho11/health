@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.MockMvc;
@@ -246,4 +245,6 @@ public class CoronaVaccinationRecordsControllerTest {
                     .andExpect(status().isNoContent());
         }
     }
+
+
 }

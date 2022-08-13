@@ -95,4 +95,14 @@ class CoronaVaccinationRecordsDAOImplTest {
             assertThat(newId, equalTo(1));
         }
     }
+
+    @Nested
+    class DeleteRecord_RecordId {
+        @Test
+        public void returned_true_byId() {
+            boolean response = subject.delete(1003);
+
+            assertThat(response, equalTo(true));
+        }
+    }
 }

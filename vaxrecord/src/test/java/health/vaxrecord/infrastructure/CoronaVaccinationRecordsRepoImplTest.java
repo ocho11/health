@@ -120,17 +120,17 @@ class CoronaVaccinationRecordsRepoImplTest {
     class Create_NewCoronaVaccinationRecord {
         @Test
         void wasCalled_from_CoronaVaccinationRecordsDAO() {
-            NewCoronaVaccinationRecord newCoronaVaccinationRecord = new NewCoronaVaccinationRecord( "newFirstName101",
+            NewCoronaVaccinationRecord newCoronaVaccinationRecord = new NewCoronaVaccinationRecord("newFirstName101",
                     "newLastName101", "newPfizer101",
                     LocalDateTime.of(2022, 5, 5, 5, 5), 101, "new problem 101");
             subject.create(newCoronaVaccinationRecord);
 
-            verify(coronaVaccinationRecordsDAO,times(1)).create(newCoronaVaccinationRecord);
+            verify(coronaVaccinationRecordsDAO, times(1)).create(newCoronaVaccinationRecord);
         }
 
         @Test
-        void does_theResponse_sameTheExpectation(){
-            NewCoronaVaccinationRecord newCoronaVaccinationRecord = new NewCoronaVaccinationRecord( "newFirstName101",
+        void does_theResponse_sameTheExpectation() {
+            NewCoronaVaccinationRecord newCoronaVaccinationRecord = new NewCoronaVaccinationRecord("newFirstName101",
                     "newLastName101", "newPfizer101",
                     LocalDateTime.of(2022, 5, 5, 5, 5), 101, "new problem 101");
             doReturn(101)
@@ -138,7 +138,17 @@ class CoronaVaccinationRecordsRepoImplTest {
 
             int response = subject.create(newCoronaVaccinationRecord);
 
-            assertThat(response,equalTo(101));
+            assertThat(response, equalTo(101));
+        }
+    }
+
+    @Nested
+    class DeleteRecord_RecordId {
+        @Test
+        public void wasCalled_from_CoronaVaccinationDAO() {
+            subject.delete(anyInt());
+
+            verify(coronaVaccinationRecordsDAO, times(1)).delete(anyInt());
         }
     }
 }

@@ -78,4 +78,11 @@ public class CoronaVaccinationRecordsDAOImpl implements CoronaVaccinationRecords
 
         return keyHolder.getKey().intValue();
     }
+
+    @Override
+    public boolean delete(int coronaVaccinationRecordId) {
+        String sql = "delete from corona_vaccination_record where corona_vaccination_record_id = ?";
+        int numberOfRowsEffected = jdbcTemplate.update(sql, coronaVaccinationRecordId);
+        return numberOfRowsEffected != 0;
+    }
 }
