@@ -41,4 +41,10 @@ public class CoronaVaccinationRecordsController {
         int id = repo.create(coronaVaccinationRecordDTO.convertToDomain());
         return new IdDTO(id);
     }
+
+    @DeleteMapping("/{coronaVaccinationRecordId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteRe(@PathVariable int coronaVaccinationRecordId){
+        repo.delete(coronaVaccinationRecordId);
+    }
 }

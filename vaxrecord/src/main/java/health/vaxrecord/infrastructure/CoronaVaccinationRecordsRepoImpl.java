@@ -33,4 +33,9 @@ public class CoronaVaccinationRecordsRepoImpl implements CoronaVaccinationRecord
     public int create(NewCoronaVaccinationRecord coronaVaccinationRecord) {
         return coronaVaccinationRecordsDAO.create(coronaVaccinationRecord);
     }
+
+    @Override
+    public void delete(int coronaVaccinationRecordId) {
+
+    }
 }

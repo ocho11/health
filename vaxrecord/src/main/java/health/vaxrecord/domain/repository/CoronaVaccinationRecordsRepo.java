@@ -11,4 +11,6 @@ public interface CoronaVaccinationRecordsRepo {
     CoronaVaccinationRecord getById(int coronaVaccinationRecordId);
 
     int create(NewCoronaVaccinationRecord coronaVaccinationRecord);
+
+    void delete(int coronaVaccinationRecordId);
 }

@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.MockMvc;
@@ -20,8 +21,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.mockito.Mockito.*;
 import static org.springframework.http.HttpStatus.CREATED;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
@@ -227,6 +227,23 @@ public class CoronaVaccinationRecordsControllerTest {
             assertThat(response.getContentAsString(), equalTo("{" +
                     "\"id\":5" +
                     "}"));
+        }
+    }
+
+    @Nested
+    class DeleteRecord_RecordId {
+        @Test
+        public void wasCalled_from_CoronaVaccinationRecordsRepo() throws Exception {
+            subject.perform(delete("/coronarecords/2"))
+                    .andReturn();
+
+            verify(coronaVaccinationRecordsRepo,times(1)).delete(anyInt());
+        }
+
+        @Test
+        public void does_theResponseCode_204() throws Exception {
+            subject.perform(delete("/coronarecords/2"))
+                    .andExpect(status().isNoContent());
         }
     }
 }
