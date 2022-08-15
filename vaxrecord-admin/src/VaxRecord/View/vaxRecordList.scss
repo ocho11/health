@@ -1,0 +1,73 @@
+
+.vax-record-list {
+  article {
+    min-width: 768px;
+    margin: 0 auto;
+    padding: 0 32px 192px 32px;
+    text-align: left;
+  }
+
+  .header-item {
+    display: flex;
+    justify-content: center;
+    position: relative;
+  }
+
+  .page-title {
+    padding: 64px 0 48px;
+  }
+
+  .register-button {
+    position: absolute;
+    right: 0;
+    top: 52px;
+    align-items: center;
+  }
+
+  .vax-record-table {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+
+    .header {
+      display: flex;
+      height: 32px;
+      align-items: center;
+    }
+
+    .body {
+      background-color: #FFFFFF;
+
+      .vax-record-row {
+        display: flex;
+        flex-direction: row;
+        border-top: 1px solid #C4C9CF;
+      }
+
+      .first-name {
+        box-sizing: border-box;
+        padding: 32px 12px 32px 12px;
+      }
+
+      .last-name {
+        box-sizing: border-box;
+        padding: 32px 12px 32px 12px;
+      }
+
+      .vaccine-type {
+        box-sizing: border-box;
+        padding: 32px 12px 32px 12px
+      }
+
+      .times {
+        box-sizing: border-box;
+        padding: 32px 12px 32px 12px
+      }
+
+      .note {
+        box-sizing: border-box;
+        padding: 32px 12px 32px 12px
+      }
+    }
+  }
+}

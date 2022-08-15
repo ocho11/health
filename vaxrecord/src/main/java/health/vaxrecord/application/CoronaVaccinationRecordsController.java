@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/coronarecords")
+@CrossOrigin(origins = "*")
 public class CoronaVaccinationRecordsController {
 
     @Autowired
