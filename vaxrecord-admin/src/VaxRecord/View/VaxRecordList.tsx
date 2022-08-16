@@ -2,9 +2,11 @@ import VaxRecordDTO from "../DTO/VaxRecordDTO";
 import {useEffect, useState} from "react";
 import vaxRecordRepo from "../Repository/VaxRecordRepo";
 import './vaxRecordList.scss'
+import {NavigatorForVaxRecordPage} from "../Navigator/NavigatorForVaxRecordPage";
 
 type VaxRecords = {
     vaxRecordRepo: vaxRecordRepo
+    navigatorPage: NavigatorForVaxRecordPage
 }
 
 function VaxRecordList(props: VaxRecords) {
@@ -17,12 +19,16 @@ function VaxRecordList(props: VaxRecords) {
             })
     }, [props.vaxRecordRepo])
 
+    function registerButtonClicked() {
+        props.navigatorPage.goToCreateVaxRecord()
+    }
+
     return (
         <div className="vax-record-list">
             <article>
                 <div className="header-item">
                     <div className="page-title">Vaccination Record List</div>
-                    <button className="register-button">register</button>
+                    <button className="register-button" onClick={registerButtonClicked}>register</button>
                 </div>
                 <div className="vax-record-table">
                     <div className="header">
