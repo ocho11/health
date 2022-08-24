@@ -1,6 +1,6 @@
 package health.vaxrecord.application.dto;
 
-import health.vaxrecord.domain.model.NewCoronaVaccinationRecord;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.time.LocalDateTime;
 
@@ -8,6 +8,7 @@ public class NewCoronaVaccinationRecordDTO {
     private String firstName;
     private String lastName;
     private String vaccineType;
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime vaccinatedDate;
     private int times;
     private String note;
@@ -24,37 +25,27 @@ public class NewCoronaVaccinationRecordDTO {
         this.note = note;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setVaccineType(String vaccineType) {
-        this.vaccineType = vaccineType;
+    public String getVaccineType() {
+        return vaccineType;
     }
 
-    public void setVaccinatedDate(LocalDateTime vaccinatedDate) {
-        this.vaccinatedDate = vaccinatedDate;
+    public LocalDateTime getVaccinatedDate() {
+        return vaccinatedDate;
     }
 
-    public void setTimes(int times) {
-        this.times = times;
+    public int getTimes() {
+        return times;
     }
 
-    public void setNote(String note) {
-        this.note = note;
-    }
-
-    public NewCoronaVaccinationRecord convertToDomain() {
-        return new NewCoronaVaccinationRecord(
-                this.firstName,
-                this.lastName,
-                this.vaccineType,
-                this.vaccinatedDate,
-                this.times,
-                this.note);
+    public String getNote() {
+        return note;
     }
 }

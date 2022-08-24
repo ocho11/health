@@ -19,7 +19,7 @@ function App() {
                 <Routes>
                     <Route path="/coronarecords"
                            element={<VaxRecordList vaxRecordRepo={vaxRecordRepo} navigatorPage={navigatorPage}/>}/>
-                    <Route path="/coronarecords/create" element={<VaxRecordNew/>}/>
+                    <Route path="/coronarecords/create" element={<VaxRecordNew vaxRecordRepo={vaxRecordRepo} navigatorPage={navigatorPage}/>}/>
                 </Routes>
             </BrowserRouter>
         </div>

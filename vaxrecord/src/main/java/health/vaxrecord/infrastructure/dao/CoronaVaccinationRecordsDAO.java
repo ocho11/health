@@ -10,7 +10,7 @@ public interface CoronaVaccinationRecordsDAO {
 
     CoronaVaccinationRecord getById(int id);
 
-    int create(NewCoronaVaccinationRecord newCoronaVaccinationRecordDTO);
+    int create(NewCoronaVaccinationRecord newCoronaVaccinationRecord);
 
     boolean delete(int coronaVaccinationRecordId);
 }

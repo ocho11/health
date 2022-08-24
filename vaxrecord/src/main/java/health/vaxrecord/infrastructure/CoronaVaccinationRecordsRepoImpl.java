@@ -1,5 +1,6 @@
 package health.vaxrecord.infrastructure;
 
+import health.vaxrecord.application.dto.NewCoronaVaccinationRecordDTO;
 import health.vaxrecord.domain.model.CoronaVaccinationRecord;
 import health.vaxrecord.domain.model.NewCoronaVaccinationRecord;
 import health.vaxrecord.domain.repository.CoronaVaccinationRecordsRepo;
