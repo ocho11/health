@@ -4,12 +4,8 @@ import BrowserFetchWrapper from "./VaxRecord/Network/BrowserFetchWrapper";
 import NetworkVaxRecordsRepo from "./VaxRecord/Repository/NetworkVaxRecordsRepo";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import VaxRecordNew from "./VaxRecord/View/VaxRecordNew";
-import {NavigatorForVaxRecordPageImpl} from "./VaxRecord/Navigator/NavigatorForVaxRecordPageImpl";
-import {createBrowserHistory, History} from "history";
 
 function App() {
-    const browserHistory: History = createBrowserHistory();
-    const navigatorPage = new NavigatorForVaxRecordPageImpl(browserHistory);
     const browserFetchWrapper = new BrowserFetchWrapper()
     const vaxRecordRepo = new NetworkVaxRecordsRepo(browserFetchWrapper)
 
@@ -18,8 +14,8 @@ function App() {
             <BrowserRouter>
                 <Routes>
                     <Route path="/coronarecords"
-                           element={<VaxRecordList vaxRecordRepo={vaxRecordRepo} navigatorPage={navigatorPage}/>}/>
-                    <Route path="/coronarecords/create" element={<VaxRecordNew vaxRecordRepo={vaxRecordRepo} navigatorPage={navigatorPage}/>}/>
+                           element={<VaxRecordList vaxRecordRepo={vaxRecordRepo}/>}/>
+                    <Route path="/coronarecords/create" element={<VaxRecordNew vaxRecordRepo={vaxRecordRepo}/>}/>
                 </Routes>
             </BrowserRouter>
         </div>

@@ -2,15 +2,16 @@ import VaxRecordDTO from "../DTO/VaxRecordDTO";
 import {useEffect, useState} from "react";
 import vaxRecordRepo from "../Repository/VaxRecordRepo";
 import './vaxRecordList.scss'
-import {NavigatorForVaxRecordPage} from "../Navigator/NavigatorForVaxRecordPage";
+import {useNavigate} from "react-router";
+
 
 type VaxRecords = {
     vaxRecordRepo: vaxRecordRepo
-    navigatorPage: NavigatorForVaxRecordPage
 }
 
 function VaxRecordList(props: VaxRecords) {
     const [vaxRecords, setVaxRecords] = useState([] as VaxRecordDTO[])
+    let navigate = useNavigate()
 
     useEffect(() => {
         props.vaxRecordRepo.getList()
@@ -20,7 +21,7 @@ function VaxRecordList(props: VaxRecords) {
     }, [props.vaxRecordRepo])
 
     function registerButtonClicked() {
-        props.navigatorPage.goToCreateVaxRecord()
+        navigate('/coronarecords/create');
     }
 
     return (

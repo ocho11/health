@@ -1,11 +1,10 @@
 import {useState} from "react";
 import VaxRecordRepo from "../Repository/VaxRecordRepo";
-import {NavigatorForVaxRecordPage} from "../Navigator/NavigatorForVaxRecordPage";
+import {useNavigate} from "react-router";
 import NewVaxRecordDTO from "../DTO/NewVaxRecordDTO";
 
 type VaxRecordProps = {
     vaxRecordRepo: VaxRecordRepo
-    navigatorPage: NavigatorForVaxRecordPage
 }
 
 function VaxRecordNew(props: VaxRecordProps) {
@@ -15,6 +14,7 @@ function VaxRecordNew(props: VaxRecordProps) {
     const [times, setTimes] = useState(0)
     const [note, setNote] = useState("")
     let vaccinateDate: string = ''
+    let navigate = useNavigate()
 
     function registerButtonClicked() {
         let clickedDate = new Date(),
@@ -38,13 +38,12 @@ function VaxRecordNew(props: VaxRecordProps) {
         vaccinateDate = registeredDate + 'T' + hour + ':' + minute;
         const registerConfirmed = window.confirm("Do you want to register?")
         if (registerConfirmed) {
-            props.vaxRecordRepo.create(new NewVaxRecordDTO(firstName, lastName, vaccineType, vaccinateDate, times, note)).then(r => r)
+            props.vaxRecordRepo.create(new NewVaxRecordDTO(firstName, lastName, vaccineType, vaccinateDate, times, note)).then(() => navigate('/coronarecords/'))
         }
-        props.navigatorPage.goToVaxRecordList()
     }
 
     function vaxRecordListLinkClicked() {
-        props.navigatorPage.goToVaxRecordList()
+        navigate('/coronarecords/');
     }
 
     return (
