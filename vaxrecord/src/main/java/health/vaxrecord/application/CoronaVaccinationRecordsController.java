@@ -16,7 +16,6 @@ import static org.springframework.http.HttpStatus.NO_CONTENT;
 
 @RestController
 @RequestMapping("/coronarecords")
-@CrossOrigin(origins = "*")
 public class CoronaVaccinationRecordsController {
 
     @Autowired
