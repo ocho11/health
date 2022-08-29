@@ -2,6 +2,7 @@ import {useState} from "react";
 import VaxRecordRepo from "../Repository/VaxRecordRepo";
 import {useNavigate} from "react-router";
 import NewVaxRecordDTO from "../DTO/NewVaxRecordDTO";
+import './vaxRecordNew.scss'
 
 type VaxRecordProps = {
     vaxRecordRepo: VaxRecordRepo

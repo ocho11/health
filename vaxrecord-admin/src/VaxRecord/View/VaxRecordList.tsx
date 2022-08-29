@@ -2,7 +2,8 @@ import VaxRecordDTO from "../DTO/VaxRecordDTO";
 import {useEffect, useState} from "react";
 import vaxRecordRepo from "../Repository/VaxRecordRepo";
 import './vaxRecordList.scss'
-import {useNavigate} from "react-router";
+import {useNavigate} from "react-router-dom";
+import {NavigateFunction} from "react-router/lib/hooks";
 
 
 type VaxRecords = {
@@ -45,7 +46,6 @@ function VaxRecordList(props: VaxRecords) {
                                 <div className="first-name">{vaxRecord.firstName}</div>
                                 <div className="last-name">{vaxRecord.lastName}</div>
                                 <div className="vaccine-type">{vaxRecord.vaccineType}</div>
-                                {/*<div className="registered-date">{vaxRecord.vaccinatedDate}</div>*/}
                                 <div className="times">{vaxRecord.times}</div>
                                 <div className="note">{vaxRecord.note}</div>
                             </div>
