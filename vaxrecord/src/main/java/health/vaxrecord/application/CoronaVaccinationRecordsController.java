@@ -52,6 +52,7 @@ public class CoronaVaccinationRecordsController {
                 newCoronaVaccinationRecordDTO.getTimes(),
                 newCoronaVaccinationRecordDTO.getNote());
         int id = repo.create(newCoronaVaccinationRecord);
+        int test =5;
         return new IdDTO(id);
     }
 }
